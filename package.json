@@ -1,0 +1,36 @@
+{
+	"name": "infinite-pagination-mongo",
+	"description": "nodeJs mongoose server side pagination, recommended to use with use-apollo-infinite-scroll or use-fetch-infinite-scroll for client side pagination packages.",
+	"version": "1.0.5",
+	"main": "dist/index.js",
+	"types": "dist/types/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/cjs/index.js"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/IliyaBrook/infinite-pagination-mongo.git"
+	},
+	"bugs": {
+		"url": "https://github.com/IliyaBrook/infinite-pagination-mongo/issues"
+	},
+	"keywords": [
+		"node",
+		"mongoose",
+		"pagination"
+	],
+	"author": "Iliya Brook <iliyabrook1987@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"build": "tsc && tsc --project tsconfig.cjs.json"
+	},
+	"devDependencies": {
+		"mongoose": "^8.4.1",
+		"typescript": "^5.4.5",
+		"@types/node": "^14.17.4",
+		"@types/express": "^4.17.11"
+	}
+}
