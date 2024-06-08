@@ -1,7 +1,10 @@
 export interface PaginationArgs {
 	cursor?: string;
 	limit: number;
-	search?: string;
+	sortBy?: string;
+	sortOrder?: 'asc' | 'desc';
+	filters?: Record<string, any>;
+	idKey?: string;
 }
 
 export interface PaginationResult<T> {
