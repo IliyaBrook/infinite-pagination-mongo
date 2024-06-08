@@ -19,14 +19,8 @@ yarn add infinite-pagination-mongo
 
 ```typescript
 // Usage in an Express route
-import express from 'express';
-import Item from '../models/Item';
-import { paginate } from '../packages/infinite-pagination-mongo';
-const router = express.Router();
-
 router.get('/items', async (req, res) => {
-	const { cursor, limit, sortBy, sortOrder, filters } = req.query;
-	const parsedFilters = filters ? JSON.parse(filters as string) : {};
+	const { cursor, limit, sortBy, sortOrder, ...restFilters } = req.query;
 	
 	try {
 		const result = await paginate(Item, {
@@ -34,10 +28,11 @@ router.get('/items', async (req, res) => {
 			limit: parseInt(limit as string, 10) || 10,
 			sortBy: sortBy as string | undefined,
 			sortOrder: sortOrder as 'asc' | 'desc' || 'asc',
-			filters: parsedFilters,
+			filters: restFilters,
 			idKey: '_id'
 		});
-		res.json(result);
+		
+		return res.json(result);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
