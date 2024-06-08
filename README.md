@@ -15,8 +15,6 @@ npm install infinite-pagination-mongo
 yarn add infinite-pagination-mongo
 ```
 
-## Usage
-
 ### Example
 
 ```typescript
@@ -48,11 +46,32 @@ router.get('/items', async (req, res) => {
 export default router;
 ```
 
+### Types
+
+```typescript
+export interface PaginationArgs {
+	cursor?: string;
+	limit: number;
+	sortBy?: string;
+	sortOrder?: 'asc' | 'desc';
+	filters?: Record<string, any>;
+	idKey?: string;
+}
+
+export interface PaginationResult<T> {
+	items: T[];
+	hasNextPage: boolean;
+}
+```
+
 ### Props 
 
 * **cursor** - The ID of the last item from the previous page.
 * **limit** - The number of items to retrieve.
-* **search** - A search term to filter the items by name.
+* **sortBy ** - The field to sort the items by.
+* **sortOrder** - The order to sort the items (asc for ascending, desc for descending).
+* **filters ** - An object containing key-value pairs to filter the items.
+* **idKey ** - The key to use for identifying items (default is '_id').
 
 ## License
 
