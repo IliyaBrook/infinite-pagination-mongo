@@ -1,7 +1,7 @@
 {
 	"name": "infinite-pagination-mongo",
 	"description": "nodeJs mongoose server side pagination, recommended to use with use-apollo-infinite-scroll or use-fetch-infinite-scroll for client side pagination packages.",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"main": "dist/index.js",
 	"types": "dist/types/index.d.ts",
 	"exports": {
