@@ -11,7 +11,3 @@ export interface PaginationArgs<TRawDocType> {
 	options?: QueryOptions<TRawDocType> | null | undefined;
 	populate?: string;
 }
-export interface PaginationResult<T> {
-	data: T[];
-	hasNextPage: boolean;
-}
