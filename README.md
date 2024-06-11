@@ -20,13 +20,12 @@ yarn add infinite-pagination-mongo
 ```typescript
 // Usage in an Express route
 router.get('/items', async (req, res) => {
-	const { cursor, limit, sortBy, sortOrder, ...restFilters } = req.query;
+	const { cursor, limit, sortOrder, ...restFilters } = req.query;
 	
 	try {
 		const result = await paginate(Item, {
 			cursor: cursor as string | undefined,
 			limit: parseInt(limit as string, 10) || 10,
-			sortBy: sortBy as string | undefined,
 			sortOrder: sortOrder as 'asc' | 'desc' || 'asc',
 			filters: restFilters,
 			idKey: '_id'
@@ -45,12 +44,14 @@ export default router;
 
 ```typescript
 export interface PaginationArgs {
-	cursor?: string;
+	cursor?: string; // last item ID
 	limit: number;
-	sortBy?: string;
 	sortOrder?: 'asc' | 'desc';
-	filters?: Record<string, any>;
-	idKey?: string;
+	idKey?: string; // default is '_id'
+	filters?: FilterQuery<TRawDocType>;
+	projection?: ProjectionType<TRawDocType> | null | undefined; // Mongoose ProjectionType
+	populate?: string; // Mongoose populate, write the field name to populate
+	options?: QueryOptions<TRawDocType> | null | undefined; // Mongoose QueryOptions
 }
 
 export interface PaginationResult<T> {
@@ -63,10 +64,12 @@ export interface PaginationResult<T> {
 
 * **cursor** - The ID of the last item from the previous page.
 * **limit** - The number of items to retrieve.
-* **sortBy ** - The field to sort the items by.
 * **sortOrder** - The order to sort the items (asc for ascending, desc for descending).
 * **filters ** - An object containing key-value pairs to filter the items.
 * **idKey ** - The key to use for identifying items (default is '_id').
+* **populate** - The field to populate using Mongoose populate.
+* **options** - Additional options to pass to the Mongoose query.
+* **projection** - The fields to include or exclude from the query.
 
 ## License
 
