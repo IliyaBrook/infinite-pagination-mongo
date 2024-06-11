@@ -1,10 +1,10 @@
 import { Model, SortOrder } from 'mongoose';
-import type { PaginationArgs } from './types';
+import type { PaginationArgs, PaginationResult } from './types';
 
 const paginate = async <T>(
 	model: Model<T>,
 	args: PaginationArgs<T>,
-): Promise<T[]> => {
+): Promise<PaginationResult<T>> => {
 	const {
 		cursor,
 		limit,
@@ -42,7 +42,10 @@ const paginate = async <T>(
 	}
 	const data = await result;
 	const hasNextPage = data.length > limit;
-	return hasNextPage ? data.slice(0, -1) : data;
+	return {
+		data: hasNextPage ? data.slice(0, -1) : data,
+		hasNextPage,
+	};
 };
 
 export default paginate;
